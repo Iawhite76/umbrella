@@ -1054,7 +1054,7 @@ describe(".clone(options)", function() {
           <input id="textInput" type="text">
         </div>
         <div class="destination">
-          
+
         </div>
       </div>*/}
     });
@@ -1091,18 +1091,37 @@ describe(".clone(options)", function() {
       var textareaInput = u('#textareaInput');
       textareaInput.first().value = 'test';
 
-      u('.destination').append(textareaInput.clone({textarea: true}));
+      u('.destination').append(textareaInput.clone());
 
       expect(u('.destination #textareaInput').first().value).to.eq('test');
+    });
+
+    it ("should clone a textarea input and NOT its value when the textarea extension is disabled", function() {
+      var textareaInput = u('#textareaInput');
+      textareaInput.first().value = 'test';
+      u.prototype.mirror.textarea = false;
+      u('.destination').append(textareaInput.clone());
+
+      expect(u('.destination #textareaInput').first().value).to.eq('');
     });
 
     it ("should clone a select input and its value by default", function() {
       var selectInput = u('#selectInput');
       selectInput.first().value = 'b';
 
-      u('.destination').append(selectInput.clone({select: true}));
+      u('.destination').append(selectInput.clone());
 
       expect(u('.destination #selectInput').first().value).to.eq('b');
+    });
+
+    it ("should clone a select input and NOT its value when the select extension is disabled", function() {
+      var selectInput = u('#selectInput');
+      selectInput.first().value = 'b';
+
+      u.prototype.mirror.select = false;
+      u('.destination').append(selectInput.clone());
+
+      expect(u('.destination #selectInput').first().value).to.eq('a');
     });
   });
 
@@ -1119,6 +1138,7 @@ describe(".clone(options)", function() {
     });
   });
 });
+
 // Testing the main file
 describe(".closest(selector)", function() {
 

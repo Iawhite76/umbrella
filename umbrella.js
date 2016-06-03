@@ -249,7 +249,7 @@ u.prototype.clone = function clone () {
     }
 
     for (var key in mirrorObject) {
-      if (mirrorObject.hasOwnProperty(key) && mirrorObject[key].name !== 'events') {
+      if (mirrorObject[key] && mirrorObject.hasOwnProperty(key) && mirrorObject[key].name !== 'events') {
         this.mirror[key](node, clone);
       }
     }
